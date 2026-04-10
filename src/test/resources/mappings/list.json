@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/([a-zA-Z0-9]+)"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": [
+      {
+        "id": "{{request.path.[0]}}",
+        "kod": "ABC-123",
+        "namn": "Testdata"
+      }
+    ],
+    "transformers": ["response-template"]
+  }
+}
