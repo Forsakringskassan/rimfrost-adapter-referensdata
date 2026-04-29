@@ -2,6 +2,20 @@
 
 Changelog of rimfrost-adapter-referensdata.
 
+## 1.0.0 (2026-04-29)
+
+### Breaking changes
+
+-  release 1.0 ([989df](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/989df18dbc454d3) Lars Persson)  
+
+### Features
+
+-  release 1.0 ([989df](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/989df18dbc454d3) Lars Persson)  
+
+### Bug Fixes
+
+-  Bump rimfrost-service-referensdata-openapi to released version ([ef604](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/ef604da710795af) Lars Persson)  
+
 ## 0.0.1 (2026-04-10)
 
 ### Bug Fixes
