@@ -2,6 +2,13 @@
 
 Changelog of rimfrost-adapter-referensdata.
 
+## 1.0.1 (2026-05-04)
+
+### Bug Fixes
+
+-  tester av custom exceptions ([9f55c](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/9f55c172a3d2f8b) Ulf Slunga)  
+-  throwing ReferensdataException. ([f1039](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/f1039c68340ad5a) Ulf Slunga)  
+
 ## 1.0.0 (2026-04-29)
 
 ### Breaking changes
