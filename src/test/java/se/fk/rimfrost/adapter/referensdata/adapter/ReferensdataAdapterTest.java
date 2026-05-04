@@ -3,21 +3,19 @@ package se.fk.rimfrost.adapter.referensdata.adapter;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.component.QuarkusComponentTest;
-
 import java.util.ArrayList;
-import java.util.UUID;
-
 import jakarta.inject.Inject;
-import jakarta.ws.rs.WebApplicationException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import se.fk.rimfrost.adapter.referensdata.model.ImmutableReferensdata;
 import se.fk.rimfrost.adapter.referensdata.model.Referensdata;
-
+import com.github.tomakehurst.wiremock.client.WireMock;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusComponentTest
 public class ReferensdataAdapterTest
@@ -61,6 +59,12 @@ public class ReferensdataAdapterTest
       referensdataList.add(referensdata);
    }
 
+   @BeforeEach
+   void resetStubs()
+   {
+      server.resetToDefaultMappings();
+   }
+
    @AfterAll
    public static void teardown()
    {
@@ -71,7 +75,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetIdtyper()
+   void testGetIdtyper() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("idtyp"));
@@ -81,7 +85,37 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetIdtyp()
+   void testGetIdtyperThrowsBadRequest()
+   {
+      server.stubFor(WireMock.get(WireMock.urlPathEqualTo("/idtyp"))
+            .willReturn(WireMock.aResponse().withStatus(400)));
+
+      var exception = assertThrows(ReferensdataException.class, () -> referensdataAdapter.getIdtyper());
+      assertEquals(ReferensdataErrorCode.BAD_REQUEST, exception.getErrorCode());
+   }
+
+   @Test
+   void testGetIdtyperThrowsServiceUnavailable()
+   {
+      server.stubFor(WireMock.get(WireMock.urlPathEqualTo("/idtyp"))
+            .willReturn(WireMock.aResponse().withStatus(503)));
+
+      var exception = assertThrows(ReferensdataException.class, () -> referensdataAdapter.getIdtyper());
+      assertEquals(ReferensdataErrorCode.SERVICE_UNAVAILABLE, exception.getErrorCode());
+   }
+
+   @Test
+   void testGetIdtyperThrowsUnexpectedError()
+   {
+      server.stubFor(WireMock.get(WireMock.urlPathEqualTo("/idtyp"))
+            .willReturn(WireMock.aResponse().withStatus(500)));
+
+      var exception = assertThrows(ReferensdataException.class, () -> referensdataAdapter.getIdtyper());
+      assertEquals(ReferensdataErrorCode.UNEXPECTED_ERROR, exception.getErrorCode());
+   }
+
+   @Test
+   void testGetIdtyp() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("idtyp-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -89,7 +123,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetYrkandestatusar()
+   void testGetYrkandestatusar() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("yrkandestatus"));
@@ -99,7 +133,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetYrkandestatus()
+   void testGetYrkandestatus() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("yrkandestatus-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -107,7 +141,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetAvsiktstyper()
+   void testGetAvsiktstyper() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("avsiktstyp"));
@@ -117,7 +151,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetAvsiktstyp()
+   void testGetAvsiktstyp() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("avsiktstyp-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -125,7 +159,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetAvslutstyper()
+   void testGetAvslutstyper() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("avslutstyp"));
@@ -135,7 +169,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetAvslutstyp()
+   void testGetAvslutstyp() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("avslutstyp-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -143,7 +177,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetBeslutstyper()
+   void testGetBeslutstyper() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("beslutstyp"));
@@ -153,7 +187,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetBeslutstyp()
+   void testGetBeslutstyp() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("beslutstyp-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -161,7 +195,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetBeslutsutfallstyper()
+   void testGetBeslutsutfallstyper() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("beslutsutfallstyp"));
@@ -171,7 +205,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetBeslutsutfallstyp()
+   void testGetBeslutsutfallstyp() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("beslutsutfallstyp-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -179,7 +213,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetUppgiftstatustyper()
+   void testGetUppgiftstatustyper() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("uppgiftstatustyp"));
@@ -189,7 +223,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetUppgiftstatustyp()
+   void testGetUppgiftstatustyp() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("uppgiftstatustyp-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -197,7 +231,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetFSSAinformationstyper()
+   void testGetFSSAinformationstyper() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("fssainformationstyp"));
@@ -207,7 +241,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetFSSAinformationstyp()
+   void testGetFSSAinformationstyp() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("fssainformationstyp-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -215,7 +249,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetYrkanderoller()
+   void testGetYrkanderoller() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("yrkanderoll"));
@@ -225,7 +259,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetYrkanderoll()
+   void testGetYrkanderoll() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("yrkanderoll-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
@@ -233,7 +267,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetErbjudanden()
+   void testGetErbjudanden() throws ReferensdataException
    {
       var apiReferensdataList = new ArrayList<se.fk.rimfrost.jaxrsspec.controllers.generatedsource.model.Referensdata>();
       apiReferensdataList.add(createApiReferensData("erbjudande"));
@@ -243,7 +277,7 @@ public class ReferensdataAdapterTest
    }
 
    @Test
-   void testGetErbjudande()
+   void testGetErbjudande() throws ReferensdataException
    {
       var apiReferensdata = createApiReferensData("erbjudande-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);

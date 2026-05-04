@@ -3,6 +3,8 @@ package se.fk.rimfrost.adapter.referensdata.adapter;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.ServiceUnavailableException;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -13,7 +15,8 @@ import se.fk.rimfrost.adapter.referensdata.model.Referensdata;
 import se.fk.rimfrost.jaxrsspec.controllers.generatedsource.ReferensdataControllerApi;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 @ApplicationScoped
@@ -40,123 +43,177 @@ public class ReferensdataAdapter
             client.target(this.referensdataBaseUrl));
    }
 
-   public List<Referensdata> getIdtyper()
+   public List<Referensdata> getIdtyper() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getIdtyper();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "idtyper";
+      var apiResponse = fetchFromClient(referensdataClient::getIdtyper, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getIdtyp(String id)
+   public Referensdata getIdtyp(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getIdtyp(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "idtyp";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getIdtyp(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getYrkandestatusar()
+   public List<Referensdata> getYrkandestatusar() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getYrkandestatusar();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "yrkandestatusar";
+      var apiResponse = fetchFromClient(referensdataClient::getYrkandestatusar, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getYrkandestatus(String id)
+   public Referensdata getYrkandestatus(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getYrkandestatus(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "yrkandestatus";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getYrkandestatus(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getAvsiktstyper()
+   public List<Referensdata> getAvsiktstyper() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getAvsiktstyper();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "avsiktstyper";
+      var apiResponse = fetchFromClient(referensdataClient::getAvsiktstyper, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getAvsiktstyp(String id)
+   public Referensdata getAvsiktstyp(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getAvsiktstyp(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "avsiktstyp";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getAvsiktstyp(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getAvslutstyper()
+   public List<Referensdata> getAvslutstyper() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getAvslutstyper();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "avslutstyper";
+      var apiResponse = fetchFromClient(referensdataClient::getAvslutstyper, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getAvslutstyp(String id)
+   public Referensdata getAvslutstyp(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getAvslutstyp(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "avslutstyp";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getAvslutstyp(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getBeslutstyper()
+   public List<Referensdata> getBeslutstyper() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getBeslutstyper();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "beslutstyper";
+      var apiResponse = fetchFromClient(referensdataClient::getBeslutstyper, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getBeslutstyp(String id)
+   public Referensdata getBeslutstyp(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getBeslutstyp(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "beslutstyp";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getBeslutstyp(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getBeslutsutfallstyper()
+   public List<Referensdata> getBeslutsutfallstyper() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getBeslutsutfallstyper();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "beslutsutfallstyper";
+      var apiResponse = fetchFromClient(referensdataClient::getBeslutsutfallstyper, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getBeslutsutfallstyp(String id)
+   public Referensdata getBeslutsutfallstyp(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getBeslutsutfallstyp(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "beslutsutfallstyp";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getBeslutsutfallstyp(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getUppgiftstatustyper()
+   public List<Referensdata> getUppgiftstatustyper() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getUppgiftstatustyper();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "uppgiftstatustyper";
+      var apiResponse = fetchFromClient(referensdataClient::getUppgiftstatustyper, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getUppgiftstatustyp(String id)
+   public Referensdata getUppgiftstatustyp(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getUppgiftstatustyp(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "uppgiftstatustyp";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getUppgiftstatustyp(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getFSSAinformationstyper()
+   public List<Referensdata> getFSSAinformationstyper() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getFSSAinformationstyper();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "FSSAinformationstyper";
+      var apiResponse = fetchFromClient(referensdataClient::getFSSAinformationstyper, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getFSSAinformationstyp(String id)
+   public Referensdata getFSSAinformationstyp(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getFSSAinformationstyp(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "FSSAinformationstyp";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getFSSAinformationstyp(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getYrkanderoller()
+   public List<Referensdata> getYrkanderoller() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getYrkanderoller();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "yrkanderoller";
+      var apiResponse = fetchFromClient(referensdataClient::getYrkanderoller, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getYrkanderoll(String id)
+   public Referensdata getYrkanderoll(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getYrkanderoll(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "yrkanderoll";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getYrkanderoll(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
    }
 
-   public List<Referensdata> getErbjudanden()
+   public List<Referensdata> getErbjudanden() throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getErbjudanden();
-      return referensdataMapper.toReferensdataList(apiResponse);
+      var resourceName = "erbjudanden";
+      var apiResponse = fetchFromClient(referensdataClient::getErbjudanden, resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdataList, resourceName);
    }
 
-   public Referensdata getErbjudande(String id)
+   public Referensdata getErbjudande(String id) throws ReferensdataException
    {
-      var apiResponse = referensdataClient.getErbjudande(id);
-      return referensdataMapper.toReferensdata(apiResponse);
+      var resourceName = "erbjudande";
+      var apiResponse = fetchFromClient(() -> referensdataClient.getErbjudande(id), resourceName);
+      return mapResponse(apiResponse, referensdataMapper::toReferensdata, resourceName);
+   }
+
+   private <T> T fetchFromClient(Supplier<T> clientCall, String resourceName) throws ReferensdataException
+   {
+      try
+      {
+         return clientCall.get();
+      }
+      catch (BadRequestException e)
+      {
+         throw new ReferensdataException(ReferensdataErrorCode.BAD_REQUEST, "Bad request when fetching " + resourceName);
+      }
+      catch (ServiceUnavailableException e)
+      {
+         throw new ReferensdataException(ReferensdataErrorCode.SERVICE_UNAVAILABLE, "Referensdata service unavailable");
+      }
+      catch (Exception e)
+      {
+         throw new ReferensdataException(ReferensdataErrorCode.UNEXPECTED_ERROR,
+               "Unexpected error when fetching " + resourceName);
+      }
+   }
+
+   private <T, R> R mapResponse(T apiResponse, Function<T, R> mapper, String resourceName) throws ReferensdataException
+   {
+      try
+      {
+         return mapper.apply(apiResponse);
+      }
+      catch (Exception e)
+      {
+         throw new ReferensdataException(ReferensdataErrorCode.UNEXPECTED_ERROR,
+               "Unexpected error when mapping " + resourceName + " response");
+      }
    }
 }
