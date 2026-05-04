@@ -3,21 +3,19 @@ package se.fk.rimfrost.adapter.referensdata.adapter;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.component.QuarkusComponentTest;
-
 import java.util.ArrayList;
-import java.util.UUID;
-
 import jakarta.inject.Inject;
-import jakarta.ws.rs.WebApplicationException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import se.fk.rimfrost.adapter.referensdata.model.ImmutableReferensdata;
 import se.fk.rimfrost.adapter.referensdata.model.Referensdata;
-
+import com.github.tomakehurst.wiremock.client.WireMock;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusComponentTest
 public class ReferensdataAdapterTest
@@ -61,6 +59,12 @@ public class ReferensdataAdapterTest
       referensdataList.add(referensdata);
    }
 
+   @BeforeEach
+   void resetStubs()
+   {
+      server.resetToDefaultMappings();
+   }
+
    @AfterAll
    public static void teardown()
    {
@@ -78,6 +82,36 @@ public class ReferensdataAdapterTest
 
       Mockito.when(referensdataMapper.toReferensdataList(apiReferensdataList)).thenReturn(referensdataList);
       assertEquals(referensdataList, referensdataAdapter.getIdtyper());
+   }
+
+   @Test
+   void testGetIdtyperThrowsBadRequest()
+   {
+      server.stubFor(WireMock.get(WireMock.urlPathEqualTo("/idtyp"))
+            .willReturn(WireMock.aResponse().withStatus(400)));
+
+      var exception = assertThrows(ReferensdataException.class, () -> referensdataAdapter.getIdtyper());
+      assertEquals(ReferensdataErrorCode.BAD_REQUEST, exception.getErrorCode());
+   }
+
+   @Test
+   void testGetIdtyperThrowsServiceUnavailable()
+   {
+      server.stubFor(WireMock.get(WireMock.urlPathEqualTo("/idtyp"))
+            .willReturn(WireMock.aResponse().withStatus(503)));
+
+      var exception = assertThrows(ReferensdataException.class, () -> referensdataAdapter.getIdtyper());
+      assertEquals(ReferensdataErrorCode.SERVICE_UNAVAILABLE, exception.getErrorCode());
+   }
+
+   @Test
+   void testGetIdtyperThrowsUnexpectedError()
+   {
+      server.stubFor(WireMock.get(WireMock.urlPathEqualTo("/idtyp"))
+            .willReturn(WireMock.aResponse().withStatus(500)));
+
+      var exception = assertThrows(ReferensdataException.class, () -> referensdataAdapter.getIdtyper());
+      assertEquals(ReferensdataErrorCode.UNEXPECTED_ERROR, exception.getErrorCode());
    }
 
    @Test

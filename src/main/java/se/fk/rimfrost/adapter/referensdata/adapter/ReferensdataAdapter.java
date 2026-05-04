@@ -199,7 +199,8 @@ public class ReferensdataAdapter
       }
       catch (Exception e)
       {
-         throw new ReferensdataException(ReferensdataErrorCode.UNEXPECTED_ERROR, "Unexpected error when fetching " + resourceName);
+         throw new ReferensdataException(ReferensdataErrorCode.UNEXPECTED_ERROR,
+               "Unexpected error when fetching " + resourceName);
       }
    }
 
@@ -211,7 +212,8 @@ public class ReferensdataAdapter
       }
       catch (Exception e)
       {
-         throw new ReferensdataException(ReferensdataErrorCode.UNEXPECTED_ERROR, "Unexpected error when mapping " + resourceName + " response");
+         throw new ReferensdataException(ReferensdataErrorCode.UNEXPECTED_ERROR,
+               "Unexpected error when mapping " + resourceName + " response");
       }
    }
 }
