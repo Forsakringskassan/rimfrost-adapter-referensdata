@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.ServiceUnavailableException;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -188,6 +189,10 @@ public class ReferensdataAdapter
       try
       {
          return clientCall.get();
+      }
+      catch (NotFoundException e)
+      {
+         throw new ReferensdataException(ReferensdataErrorCode.NOT_FOUND, "Referensdata not found when fetching " + resourceName);
       }
       catch (BadRequestException e)
       {
