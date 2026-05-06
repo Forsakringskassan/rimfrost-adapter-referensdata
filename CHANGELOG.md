@@ -2,6 +2,12 @@
 
 Changelog of rimfrost-adapter-referensdata.
 
+## 1.0.2 (2026-05-06)
+
+### Bug Fixes
+
+-  Add support for responding with NOT_FOUND error code ([ed447](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/ed447db41f90321) Lars Persson)  
+
 ## 1.0.1 (2026-05-04)
 
 ### Bug Fixes
