@@ -85,6 +85,16 @@ public class ReferensdataAdapterTest
    }
 
    @Test
+   void testGetIdtypThrowsNotFound()
+   {
+      server.stubFor(WireMock.get(WireMock.urlPathEqualTo("/idtyp/1234"))
+            .willReturn(WireMock.aResponse().withStatus(404)));
+
+      var exception = assertThrows(ReferensdataException.class, () -> referensdataAdapter.getIdtyp("1234"));
+      assertEquals(ReferensdataErrorCode.NOT_FOUND, exception.getErrorCode());
+   }
+
+   @Test
    void testGetIdtyperThrowsBadRequest()
    {
       server.stubFor(WireMock.get(WireMock.urlPathEqualTo("/idtyp"))
