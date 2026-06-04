@@ -2,6 +2,12 @@
 
 Changelog of rimfrost-adapter-referensdata.
 
+## 1.0.3 (2026-06-03)
+
+### Bug Fixes
+
+-  bump rimfrost-service-referensdata-openapi-jaxrs-spec to 1.0.1 ([5fbea](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/5fbea4d270aab60) Ulf Slunga)  
+
 ## 1.0.2 (2026-05-06)
 
 ### Bug Fixes
