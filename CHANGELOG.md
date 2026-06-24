@@ -2,7 +2,13 @@
 
 Changelog of rimfrost-adapter-referensdata.
 
-## 1.0.3 (2026-06-03)
+## 1.1.1 (2026-06-24)
+
+### Bug Fixes
+
+-  Close client instance ([c8a3d](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/c8a3d95eaa51a92) Lars Persson)  
+
+## rimfrost-1.1 (2026-06-03)
 
 ### Bug Fixes
 
