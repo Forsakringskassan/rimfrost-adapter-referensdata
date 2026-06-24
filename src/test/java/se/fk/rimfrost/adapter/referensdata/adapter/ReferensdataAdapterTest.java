@@ -17,7 +17,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@QuarkusComponentTest
+@QuarkusComponentTest(useSystemConfigSources = true)
 public class ReferensdataAdapterTest
 {
    private static WireMockServer server;

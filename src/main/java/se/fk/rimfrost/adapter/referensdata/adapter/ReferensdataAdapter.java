@@ -1,6 +1,7 @@
 package se.fk.rimfrost.adapter.referensdata.adapter;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.BadRequestException;
@@ -9,7 +10,7 @@ import jakarta.ws.rs.ServiceUnavailableException;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
+import org.glassfish.jersey.apache5.connector.Apache5ConnectorProvider;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 import se.fk.rimfrost.adapter.referensdata.model.Referensdata;
@@ -29,6 +30,8 @@ public class ReferensdataAdapter
 
    private ReferensdataControllerApi referensdataClient;
 
+   private Client client;
+
    @Inject
    ReferensdataMapper referensdataMapper;
 
@@ -36,12 +39,24 @@ public class ReferensdataAdapter
    void init()
    {
       ClientConfig clientConfig = new ClientConfig();
-      clientConfig.connectorProvider(new ApacheConnectorProvider());
-      Client client = ClientBuilder.newClient(clientConfig);
+      clientConfig.connectorProvider(new Apache5ConnectorProvider());
+      this.client = ClientBuilder.newClient(clientConfig);
 
       this.referensdataClient = WebResourceFactory.newResource(
             ReferensdataControllerApi.class,
             client.target(this.referensdataBaseUrl));
+   }
+
+   @PreDestroy
+   void destroy()
+   {
+      this.referensdataClient = null;
+
+      if (this.client != null)
+      {
+         this.client.close();
+         this.client = null;
+      }
    }
 
    public List<Referensdata> getIdtyper() throws ReferensdataException
