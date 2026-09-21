@@ -2,6 +2,15 @@
 
 Changelog of rimfrost-adapter-referensdata.
 
+## 1.1.2 (2026-09-21)
+
+### Bug Fixes
+
+-  Bump rimfrost-service-referensdata-openapi version ([abcd0](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/abcd098ba259f3d) Lars Persson)  
+
+### Dependency updates
+
+- add renovate.json ([ee47d](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/ee47da9c9a0bd61) renovate[bot])  
 ## 1.1.1 (2026-06-24)
 
 ### Bug Fixes
