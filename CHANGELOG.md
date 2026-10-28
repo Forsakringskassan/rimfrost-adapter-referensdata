@@ -2,6 +2,20 @@
 
 Changelog of rimfrost-adapter-referensdata.
 
+## 1.1.3 (2026-10-28)
+
+### Bug Fixes
+
+-  consolidate workflows and bump openapi spec to 1.1.2 ([b6861](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/b68612b0cfaddb3) Ulf Slunga)  
+-  **deps**  update dependency org.immutables:bom to v2.12.3 ([51976](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/519769a3719c7f8) renovate[bot])  
+-  **deps**  update dependency se.fk.maven:fk-maven-parent to v1.12.0 ([48ab0](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/48ab0cd2b6bdcef) renovate[bot])  
+-  **deps**  update dependency io.quarkus:quarkus-bom to v3.40.1 ([2268b](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/2268b3fac9ef342) renovate[bot])  
+
+### Dependency updates
+
+- update forsakringskassan/.github digest to cbd74f1 ([8deff](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/8deffb93107f943) renovate[bot])  
+- update dependency org.apache.maven.plugins:maven-compiler-plugin to v3.16.0 ([0bfd7](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/0bfd725b56ff80e) renovate[bot])  
+- pin forsakringskassan/.github action to bfb01f7 ([c2559](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/c25592bcf2a898b) renovate[bot])  
 ## 1.1.2 (2026-09-21)
 
 ### Bug Fixes
