@@ -14,6 +14,7 @@ import se.fk.rimfrost.adapter.referensdata.model.ImmutableReferensdata;
 import se.fk.rimfrost.adapter.referensdata.model.Referensdata;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -292,5 +293,13 @@ public class ReferensdataAdapterTest
       var apiReferensdata = createApiReferensData("erbjudande-1234");
       Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
       assertEquals(referensdata, referensdataAdapter.getErbjudande("1234"));
+   }
+
+   @Test
+   void testGetIdtypWithUnknownProperty()
+   {
+      var apiReferensdata = createApiReferensData("idtyp-1234");
+      Mockito.when(referensdataMapper.toReferensdata(apiReferensdata)).thenReturn(referensdata);
+      assertDoesNotThrow(() -> referensdataAdapter.getIdtyp("5555"));
    }
 }
