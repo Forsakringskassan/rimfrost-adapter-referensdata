@@ -8,10 +8,10 @@ import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.ServiceUnavailableException;
 import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.glassfish.jersey.apache5.connector.Apache5ConnectorProvider;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 import se.fk.rimfrost.adapter.referensdata.model.Referensdata;
 import se.fk.rimfrost.jaxrsspec.controllers.generatedsource.ReferensdataControllerApi;
@@ -40,7 +40,8 @@ public class ReferensdataAdapter
    {
       ClientConfig clientConfig = new ClientConfig();
       clientConfig.connectorProvider(new Apache5ConnectorProvider());
-      this.client = ClientBuilder.newClient(clientConfig);
+      clientConfig.register(AdapterObjectMapperProvider.class);
+      this.client = JerseyClientBuilder.newClient(clientConfig);
 
       this.referensdataClient = WebResourceFactory.newResource(
             ReferensdataControllerApi.class,
