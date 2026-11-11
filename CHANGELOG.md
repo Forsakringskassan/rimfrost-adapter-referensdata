@@ -2,6 +2,16 @@
 
 Changelog of rimfrost-adapter-referensdata.
 
+## 1.1.4 (2026-11-11)
+
+### Bug Fixes
+
+-  Add support for ignoring unknown json properties ([c741d](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/c741d988db717d9) Lars Persson)  
+-  **deps**  update dependency io.quarkus:quarkus-bom to v3.40.1.1 ([5eee1](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/5eee159ca05e071) renovate[bot])  
+
+### Dependency updates
+
+- update forsakringskassan/.github digest to cbc0db8 ([c3921](https://github.com/Forsakringskassan/rimfrost-adapter-referensdata/commit/c3921794807aeb6) renovate[bot])  
 ## 1.1.3 (2026-10-28)
 
 ### Bug Fixes
